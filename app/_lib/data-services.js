@@ -17,3 +17,15 @@ export async function getMarketSearch() {
 
   return data;
 }
+
+export async function getUserInfo(userId) {
+  console.log(userId);
+  const res = await fetch(
+    `https://www.steamwebapi.com/steam/api/profile?key=YC7BATSKPQBYTLRM&id=${userId}`
+  );
+
+  if (!res.ok) throw new Error("There was an error");
+  const data = await res.json();
+  console.log(data);
+  return data;
+}

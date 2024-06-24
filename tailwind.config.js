@@ -34,6 +34,9 @@ module.exports = {
           950: "#114673",
         },
       },
+      boxShadow: {
+        inner: "inset 0 0 0 3px #3897e9",
+      },
     },
   },
   plugins: [],
