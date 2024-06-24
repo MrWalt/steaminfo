@@ -1,3 +1,3 @@
-export default function Page() {
-  return <div>This is my new page about steam information</div>;
+export default async function Page() {
+  return <div></div>;
 }
