@@ -8,7 +8,7 @@
     visibility: hidden;
     pointer-events: none;
 
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
 
   a:hover + .view-image-text {
