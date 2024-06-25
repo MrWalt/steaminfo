@@ -1,32 +1,23 @@
 import { Suspense } from "react";
-import Header from "../_components/Header";
-import User from "../_components/User";
-import LoadingSkeletonUser from "../_components/LoadingSkeletonUser";
+import Loading from "./loading";
+import UserCard from "../_components/UserCard";
 
 export default function page({ searchParams }) {
   return (
-    <div className="w-full">
-      <Header />
-
+    <>
       {!searchParams.userId && (
-        <div className="w-[900px] mx-auto mt-12">
+        <div className="col-start-1 col-end-5">
           <p className="text-primary-50 text-xl text-center">
             Start by typing in a SteamID or Profile Link
           </p>
         </div>
       )}
-      <div className="px-[96px] py-[48px]">
-        {searchParams.userId && (
-          <Suspense
-            fallback={<LoadingSkeletonUser />}
-            key={searchParams.userId}
-          >
-            <User userId={searchParams.userId} />
-          </Suspense>
-        )}
 
-        {/* <LoadingSkeletonUser /> */}
-      </div>
-    </div>
+      {searchParams.userId && (
+        <Suspense fallback={<Loading />} key={searchParams.userId}>
+          <UserCard userId={searchParams.userId} />
+        </Suspense>
+      )}
+    </>
   );
 }
