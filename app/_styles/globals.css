@@ -17,4 +17,8 @@
 
     transform: translateY(-50%) translateX(50%);
   }
+
+  .rounded-layout {
+    border-radius: 999px 16px 16px 999px;
+  }
 }

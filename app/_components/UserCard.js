@@ -2,6 +2,7 @@ import Image from "next/image";
 import UserDetails from "./UserDetails";
 import UserPersonalDetails from "./UserPersonalDetails";
 import { getSteamUser } from "../_lib/data-services";
+import { unstable_noStore as noStore } from "next/cache";
 
 const userStatus = {
   offline: "border-primary-100 text-primary-100",
@@ -9,18 +10,10 @@ const userStatus = {
   inGame: "border-green-500 text-green-500",
 };
 
-export const revalidate = 300;
-
 export default async function UserCard({ userId }) {
-  const {
-    avatar,
-    countryCode,
-    fullName,
-    createdAt,
-    currentlyPlaying,
-    accountState,
-    profileUrl,
-  } = await getSteamUser(userId);
+  noStore();
+  const { avatar, currentlyPlaying, accountState, profileUrl } =
+    await getSteamUser(userId);
 
   let status;
   if (accountState === 0) status = "offline";
@@ -28,7 +21,7 @@ export default async function UserCard({ userId }) {
   if (accountState >= 1 && currentlyPlaying) status = "inGame";
 
   return (
-    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-sm rounded-s-full">
+    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-layout relative">
       {/* User Avatar */}
 
       <div
@@ -52,11 +45,7 @@ export default async function UserCard({ userId }) {
         status={status}
         userId={userId}
       />
-      <UserPersonalDetails
-        countryCode={countryCode}
-        fullName={fullName}
-        createdAt={createdAt}
-      />
+      <UserPersonalDetails userId={userId} />
 
       <div className="flex justify-end items-end w-full">
         <a

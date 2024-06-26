@@ -20,9 +20,12 @@ export async function getSteamUser(profileLink) {
 
   const data = await res.json();
 
-  const { NumberOfVACBans: vacBans, EconomyBan: tradeBanned } = await getBans(
-    userId
-  );
+  const {
+    NumberOfVACBans: vacBans,
+    EconomyBan: tradeBanned,
+    NumberOfGameBans: gameBans,
+  } = await getBans(userId);
+
   const level = await getSteamLevel(userId);
 
   const {
@@ -51,6 +54,7 @@ export async function getSteamUser(profileLink) {
     profileUrl,
     vacBans,
     tradeBanned,
+    gameBans,
     level,
   };
 

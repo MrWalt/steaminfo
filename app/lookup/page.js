@@ -12,7 +12,6 @@ export default function page({ searchParams }) {
           </p>
         </div>
       )}
-
       {searchParams.userId && (
         <Suspense fallback={<Loading />} key={searchParams.userId}>
           <UserCard userId={searchParams.userId} />
