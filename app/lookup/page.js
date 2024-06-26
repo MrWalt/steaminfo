@@ -6,10 +6,10 @@ export default function page({ searchParams }) {
   return (
     <>
       {!searchParams.userId && (
-        <div className="col-start-1 col-end-5">
-          <p className="text-primary-50 text-xl text-center">
+        <div className="w-full text-center text-primary-50 col-start-1 col-end-5">
+          <span className="border-b border-primary-600 inline-block px-8 py-2 text-lg">
             Start by typing in a SteamID or Profile Link
-          </p>
+          </span>
         </div>
       )}
       {searchParams.userId && (
