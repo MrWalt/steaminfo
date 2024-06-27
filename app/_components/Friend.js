@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
@@ -30,6 +31,9 @@ export default function Friend({
     const params = new URLSearchParams(searchParams);
     params.set("userId", steamId);
     router.replace(`${pathname}?${params.toString()}`);
+
+    console.log(pathname);
+    // revalidatePath(pathname)
   }
 
   let status;
@@ -37,15 +41,12 @@ export default function Friend({
   if (accountState >= 1 && !currentlyPlaying) status = "online";
   if (accountState >= 1 && currentlyPlaying) status = "inGame";
 
-  console.log(userName.length);
-  console.log(userName.slice(0, 16));
-
   return (
-    <div className="bg-primary-700 py-2 px-4 [&:not(:last-child)]:border-b border-primary-400 flex">
+    <div className="bg-primary-700 py-2 px-4 [&:not(:last-child)]:border-b border-primary-400 flex overflow-hidden">
       <div className="flex gap-3">
         <div className="flex justify-center items-center">
           <div
-            className={`relative w-11 h-11 overflow-hidden rounded-full border-[3px] ${userStatus[status]} `}
+            className={`relative w-11 h-11 overflow-hidden rounded-full border-[3px] ${userStatus[status]}               hover:scale-110 transition-transform cursor-pointer`}
           >
             <Image src={avatar} fill alt="Some Image" />
           </div>
@@ -54,7 +55,7 @@ export default function Friend({
         <div>
           <p
             onClick={handleSearch}
-            className={`${userStatus[status]} ${hoverStatus[status]} transition-colors cursor-pointer`}
+            className={`${userStatus[status]} ${hoverStatus[status]} transition-colors cursor-pointer text-ellipsis`}
           >
             {userName.length > 16 ? `${userName.slice(0, 16)}...` : userName}
           </p>

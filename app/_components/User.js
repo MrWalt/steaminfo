@@ -1,21 +1,23 @@
 import { Suspense } from "react";
 import UserCard from "./UserCard";
-import Loading from "../lookup/loading";
 import UserFriends from "./UserFriends";
 import { getSteamUser } from "../_lib/data-services";
-import Load from "./Load";
+import LoadingSkeletonUser from "./LoadingSkeletonUser";
+import LoadingSkeletonFriends from "./LoadingSkeletonFriends";
 
-export default async function User({ userId, page }) {
+export default async function User({ userId }) {
   const { steamId } = await getSteamUser({ profileLink: userId });
 
   return (
     <>
-      <Suspense fallback={<Loading />} key={userId}>
+      {/* <LoadingSkeletonUser />
+      <LoadingSkeletonFriends /> */}
+      <Suspense fallback={<LoadingSkeletonUser />} key={userId}>
         <UserCard userId={steamId} />
       </Suspense>
 
-      <Suspense fallback={<Load />}>
-        <UserFriends steamId={steamId} page={page} />
+      <Suspense fallback={<LoadingSkeletonFriends />} key={userId / 2}>
+        <UserFriends steamId={steamId} />
       </Suspense>
     </>
   );

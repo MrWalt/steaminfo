@@ -40,7 +40,7 @@ export default async function UserPersonalDetails({ userId }) {
       </div>
 
       {/* Details */}
-      <div className="flex flex-col gap-2 justify-between px-2 py-1 flex-shrink-0">
+      <div className="flex flex-col gap-2 justify-between px-2 py-1 flex-shrink-0 flex-grow-0">
         <div className="flex flex-col gap-1">
           <Country countryCode={countryCode} />
           {fullName !== "" && (
