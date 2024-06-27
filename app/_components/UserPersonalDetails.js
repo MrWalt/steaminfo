@@ -17,9 +17,9 @@ const levelColor = {
 };
 
 export default async function UserPersonalDetails({ userId }) {
-  const { countryCode, level, fullName, createdAt } = await getSteamUser(
-    userId
-  );
+  const { countryCode, level, fullName, createdAt } = await getSteamUser({
+    profileLink: userId,
+  });
 
   const levelString = String(level);
   const levelIdentifier =
@@ -63,7 +63,7 @@ export default async function UserPersonalDetails({ userId }) {
             <span className="text-md text-primary-50">
               {format(
                 fromUnixTime(createdAt),
-                "do MMMM',' yyyy"
+                "do MMM',' yyyy"
               ).toLocaleString()}
             </span>
           </div>

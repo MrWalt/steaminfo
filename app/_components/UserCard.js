@@ -13,7 +13,7 @@ const userStatus = {
 export default async function UserCard({ userId }) {
   noStore();
   const { avatar, currentlyPlaying, accountState, profileUrl } =
-    await getSteamUser(userId);
+    await getSteamUser({ profileLink: userId });
 
   let status;
   if (accountState === 0) status = "offline";
@@ -21,7 +21,7 @@ export default async function UserCard({ userId }) {
   if (accountState >= 1 && currentlyPlaying) status = "inGame";
 
   return (
-    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-layout relative">
+    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-layout border border-primary-400 relative">
       {/* User Avatar */}
 
       <div
@@ -32,7 +32,7 @@ export default async function UserCard({ userId }) {
             src={avatar}
             fill
             alt="Image"
-            className="hover:blur object-cover transition-all scale-[1.1]"
+            className="hover:blur object-cover transition-all scale-[1.1] round"
           />
         </a>
         <span className="absolute text-2xl text-primary-50 top-[50%] right-[50%] translate-x-[50%] translate-y-[50%] view-image-text font-bold text-outline bg-accent-600 px-2 py-1 rounded-sm">

@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <div className="w-full">
       <Header />
-      <div className="max-w-[90%] px-[96px] py-[48px] grid grid-cols-[repeat(4,_1fr)] gap-20 mx-auto">
+      <div className="max-w-[90%] px-[48px] py-[48px] grid grid-cols-[repeat(4,_1fr)] gap-12 mx-auto items-start">
         {children}
       </div>
     </div>

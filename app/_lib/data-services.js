@@ -1,5 +1,15 @@
-export async function getSteamUser(profileLink) {
+export async function getSteamUser({ profileLink, type = "full" }) {
   let userId;
+
+  if (type === "multiple") {
+    // console.log(profileLink);
+    const res = await fetch(
+      `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&steamids=${profileLink}`
+    );
+
+    const data = await res.json();
+    return data.response.players;
+  }
 
   if (profileLink.startsWith("765")) userId = profileLink;
 
@@ -20,42 +30,62 @@ export async function getSteamUser(profileLink) {
 
   const data = await res.json();
 
-  const {
-    NumberOfVACBans: vacBans,
-    EconomyBan: tradeBanned,
-    NumberOfGameBans: gameBans,
-  } = await getBans(userId);
+  if (type === "full") {
+    const {
+      NumberOfVACBans: vacBans,
+      EconomyBan: tradeBanned,
+      NumberOfGameBans: gameBans,
+    } = await getBans(userId);
 
-  const level = await getSteamLevel(userId);
+    const level = await getSteamLevel(userId);
+
+    const {
+      personaname: userName,
+      avatarfull: avatar,
+      steamid: steamId,
+      loccountrycode: countryCode,
+      realname: fullName,
+      timecreated: createdAt,
+      lastlogoff: lastSeen,
+      gameextrainfo: currentlyPlaying,
+      personastate: accountState,
+      profileurl: profileUrl,
+    } = data.response.players[0];
+
+    const userData = {
+      userName,
+      steamId,
+      avatar,
+      countryCode,
+      fullName,
+      createdAt,
+      lastSeen,
+      currentlyPlaying,
+      accountState,
+      profileUrl,
+      vacBans,
+      tradeBanned,
+      gameBans,
+      level,
+    };
+
+    return userData;
+  }
 
   const {
     personaname: userName,
+    profileurl: profileUrl,
     avatarfull: avatar,
-    steamid: steamId,
-    loccountrycode: countryCode,
-    realname: fullName,
-    timecreated: createdAt,
-    lastlogoff: lastSeen,
     gameextrainfo: currentlyPlaying,
     personastate: accountState,
-    profileurl: profileUrl,
   } = data.response.players[0];
 
   const userData = {
     userName,
-    steamId,
-    avatar,
-    countryCode,
-    fullName,
-    createdAt,
-    lastSeen,
-    currentlyPlaying,
-    accountState,
     profileUrl,
-    vacBans,
-    tradeBanned,
-    gameBans,
-    level,
+    currentlyPlaying,
+    avatar,
+    accountState,
   };
 
   return userData;
@@ -80,6 +110,18 @@ export async function getSteamUser(profileLink) {
 
 //   return data;
 // }
+
+export async function getFriends(steamId) {
+  const res = await fetch(
+    `http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=${process.env.STEAM_KEY}&steamid=${steamId}&relationship=friend`
+  );
+
+  if (!res.ok) return { friends: [], private: true };
+
+  const data = await res.json();
+
+  return data.friendslist.friends;
+}
 
 export async function getCountry(code) {
   const res = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);

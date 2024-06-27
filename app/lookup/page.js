@@ -1,8 +1,6 @@
-import { Suspense } from "react";
-import Loading from "./loading";
-import UserCard from "../_components/UserCard";
+import User from "../_components/User";
 
-export default function page({ searchParams }) {
+export default async function page({ searchParams }) {
   return (
     <>
       {!searchParams.userId && (
@@ -13,9 +11,12 @@ export default function page({ searchParams }) {
         </div>
       )}
       {searchParams.userId && (
-        <Suspense fallback={<Loading />} key={searchParams.userId}>
-          <UserCard userId={searchParams.userId} />
-        </Suspense>
+        <>
+          <User
+            userId={searchParams.userId}
+            page={searchParams.page ? Number(searchParams.page) : 1}
+          />
+        </>
       )}
     </>
   );
