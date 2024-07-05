@@ -192,6 +192,7 @@ export async function getRecentlyPlayed(userId) {
   if (!res.ok) throw new Error("Could not get playtime");
 
   const data = await res.json();
+  // console.log(data.response.games[0]);
 
   return data.response.games;
 }
