@@ -50,7 +50,24 @@ export async function getSteamUser({ profileLink, type = "full" }) {
       gameextrainfo: currentlyPlaying,
       personastate: accountState,
       profileurl: profileUrl,
+      communityvisibilitystate: isPrivate,
     } = data.response.players[0];
+
+    if (isPrivate === 2) {
+      const userData = {
+        userName,
+        steamId,
+        avatar,
+        accountState,
+        profileUrl,
+        vacBans,
+        tradeBanned,
+        gameBans,
+        isPrivate: true,
+      };
+
+      return userData;
+    }
 
     const userData = {
       userName,
@@ -165,4 +182,16 @@ export async function getBans(userId) {
   const data = await res.json();
 
   return data.players.at(0);
+}
+
+export async function getRecentlyPlayed(userId) {
+  const res = await fetch(
+    `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=${userId}`
+  );
+
+  if (!res.ok) throw new Error("Could not get playtime");
+
+  const data = await res.json();
+
+  return data.response.games;
 }

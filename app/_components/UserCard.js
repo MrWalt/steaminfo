@@ -12,7 +12,7 @@ const userStatus = {
 
 export default async function UserCard({ userId }) {
   noStore();
-  const { avatar, currentlyPlaying, accountState, profileUrl } =
+  const { avatar, currentlyPlaying, accountState, profileUrl, avatarBlur } =
     await getSteamUser({ profileLink: userId });
 
   let status;
@@ -21,11 +21,11 @@ export default async function UserCard({ userId }) {
   if (accountState >= 1 && currentlyPlaying) status = "inGame";
 
   return (
-    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-layout border border-primary-400 relative">
+    <div className="col-start-1 col-end-4 bg-primary-600 flex gap-4 py-4 px-4 rounded-layout border border-primary-400 relative h-full">
       {/* User Avatar */}
 
       <div
-        className={`relative h-[156px] min-w-[156px] rounded-full border-4 overflow-hidden ${userStatus[status]}`}
+        className={`relative h-[160px] min-w-[160px] rounded-full border-4 overflow-hidden ${userStatus[status]} self-center`}
       >
         <a href={avatar} alt="Photo of something" target="blank">
           <Image
@@ -47,7 +47,7 @@ export default async function UserCard({ userId }) {
       />
       <UserPersonalDetails userId={userId} />
 
-      <div className="flex justify-end items-end w-full">
+      <div className="flex justify-end items-end flex-shrink-0">
         <a
           href={profileUrl}
           target="blank"

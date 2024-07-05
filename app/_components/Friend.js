@@ -1,6 +1,5 @@
 "use client";
 
-import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
@@ -31,9 +30,6 @@ export default function Friend({
     const params = new URLSearchParams(searchParams);
     params.set("userId", steamId);
     router.replace(`${pathname}?${params.toString()}`);
-
-    console.log(pathname);
-    // revalidatePath(pathname)
   }
 
   let status;

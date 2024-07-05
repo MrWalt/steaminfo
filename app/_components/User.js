@@ -4,6 +4,7 @@ import UserFriends from "./UserFriends";
 import { getSteamUser } from "../_lib/data-services";
 import LoadingSkeletonUser from "./LoadingSkeletonUser";
 import LoadingSkeletonFriends from "./LoadingSkeletonFriends";
+import RecentlyPlayed from "./RecentlyPlayed";
 
 export default async function User({ userId }) {
   const { steamId } = await getSteamUser({ profileLink: userId });
@@ -19,6 +20,8 @@ export default async function User({ userId }) {
       <Suspense fallback={<LoadingSkeletonFriends />} key={userId / 2}>
         <UserFriends steamId={steamId} />
       </Suspense>
+
+      <RecentlyPlayed steamId={steamId} />
     </>
   );
 }

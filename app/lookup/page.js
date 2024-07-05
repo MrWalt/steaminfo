@@ -1,7 +1,5 @@
 import User from "../_components/User";
 
-export const revalidate = 0;
-
 export default async function page({ searchParams }) {
   return (
     <>

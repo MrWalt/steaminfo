@@ -14,6 +14,7 @@ export default function SearchBar() {
     const params = new URLSearchParams(searchParams);
     params.set("userId", searchQuery);
     router.replace(`${pathname}?${params.toString()}`);
+    setSearchQuery("");
   }
 
   return (

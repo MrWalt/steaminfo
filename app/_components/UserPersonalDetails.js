@@ -2,24 +2,28 @@ import { CalendarDaysIcon, UserIcon } from "@heroicons/react/24/solid";
 import Country from "./Country";
 import { format, fromUnixTime } from "date-fns";
 import { getSteamUser } from "../_lib/data-services";
+import PrivateProfile from "./PrivateProfile";
 
 const levelColor = {
   0: "border-gray-500",
   1: "border-red-700",
   2: "border-orange-600",
-  3: "border-yellow-500",
+  3: "border-yellow-400",
   4: "border-green-800",
   5: "border-blue-700",
   6: "border-violet-700",
   7: "border-fuschia-500",
   8: "border-rose-950",
-  9: "border-yellow-900",
+  9: "border-yellow-600",
 };
 
 export default async function UserPersonalDetails({ userId }) {
-  const { countryCode, level, fullName, createdAt } = await getSteamUser({
-    profileLink: userId,
-  });
+  const { countryCode, level, fullName, createdAt, isPrivate } =
+    await getSteamUser({
+      profileLink: userId,
+    });
+
+  if (isPrivate) return <PrivateProfile />;
 
   const levelString = String(level);
   const levelIdentifier =
@@ -40,7 +44,7 @@ export default async function UserPersonalDetails({ userId }) {
       </div>
 
       {/* Details */}
-      <div className="flex flex-col gap-2 justify-between px-2 py-1 flex-shrink-0 flex-grow-0">
+      <div className="flex flex-col gap-2 justify-between px-2 py-1 basis-full">
         <div className="flex flex-col gap-1">
           <Country countryCode={countryCode} />
           {fullName !== "" && (
