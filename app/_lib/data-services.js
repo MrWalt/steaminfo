@@ -2,7 +2,6 @@ export async function getSteamUser({ profileLink, type = "full" }) {
   let userId;
 
   if (type === "multiple") {
-    // console.log(profileLink);
     const res = await fetch(
       `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&steamids=${profileLink}`
     );
@@ -166,9 +165,10 @@ export async function getGames(userId) {
     `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=${userId}&format=json&include_appinfo=true&include_played_free_games=true`
   );
 
-  if (!res.ok) throw new Error("There was an error");
+  // if (!res.ok) throw new Error("There was an error");
 
   const data = await res.json();
+  return data.response;
   // console.log(data.response);
 }
 

@@ -20,8 +20,16 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "http",
+        hostname: "media.steampowered.com",
+        port: "",
+        pathname: "/steamcommunity/public/images/apps/**",
+      },
     ],
   },
 };
+
+// http://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_icon_url}.jpg`,
 
 export default nextConfig;

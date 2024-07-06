@@ -5,7 +5,7 @@ import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 export default function PlaytimeChart({ data }) {
   return (
     <>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={260}>
         <PieChart>
           <Pie
             data={data}
