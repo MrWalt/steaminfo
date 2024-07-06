@@ -1,11 +1,11 @@
 "use client";
 
-import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 export default function PlaytimeChart({ data }) {
   return (
     <>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={250}>
         <PieChart>
           <Pie
             data={data}
@@ -13,10 +13,11 @@ export default function PlaytimeChart({ data }) {
             dataKey="value"
             innerRadius={65}
             outerRadius={90}
-            cx="40%"
+            cx="50%"
             cy="50%"
+            strokeWidth={1}
             paddingAngle={3}
-            stroke="#1f7dcf"
+            stroke="#1861a1"
             fill="#114673"
           />
           <Tooltip
