@@ -2,7 +2,6 @@ import Image from "next/image";
 import UserDetails from "./UserDetails";
 import UserPersonalDetails from "./UserPersonalDetails";
 import { getSteamUser } from "../_lib/data-services";
-import { unstable_noStore as noStore } from "next/cache";
 
 const userStatus = {
   offline: "border-primary-100 text-primary-100",
@@ -11,9 +10,8 @@ const userStatus = {
 };
 
 export default async function UserCard({ userId }) {
-  noStore();
   const { avatar, currentlyPlaying, accountState, profileUrl, avatarBlur } =
-    await getSteamUser({ profileLink: userId });
+    await getSteamUser(userId);
 
   let status;
   if (accountState === 0) status = "offline";

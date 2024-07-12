@@ -1,30 +1,26 @@
-export async function getSteamUser({ profileLink, type = "full" }) {
-  let userId;
-
+export async function getSteamUser(profileLink, type = "full") {
+  // console.log("FETCH");
   if (type === "multiple") {
     const res = await fetch(
-      `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&steamids=${profileLink}`
+      `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&format=json&steamids=${profileLink}`
     );
 
     const data = await res.json();
+
     return data.response.players;
   }
 
-  if (profileLink.startsWith("765")) userId = profileLink;
-
-  if (profileLink.split("/").length > 1) userId = profileLink.split("/").at(4);
-  if (profileLink.split("/").length === 1) userId = profileLink;
-
-  if (!userId.startsWith("765")) {
+  // Resolve Vanity URL
+  if (!profileLink.startsWith("765")) {
     const res = await fetch(
-      `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${process.env.STEAM_KEY}&vanityurl=${userId}`
+      `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${process.env.STEAM_KEY}&vanityurl=${profileLink}`
     );
     const data = await res.json();
-    userId = data.response.steamid;
+    profileLink = data.response.steamid;
   }
 
   const res = await fetch(
-    `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&steamids=${userId}`
+    `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_KEY}&steamids=${profileLink}`
   );
 
   const data = await res.json();
@@ -34,9 +30,9 @@ export async function getSteamUser({ profileLink, type = "full" }) {
       NumberOfVACBans: vacBans,
       EconomyBan: tradeBanned,
       NumberOfGameBans: gameBans,
-    } = await getBans(userId);
+    } = await getBans(profileLink);
 
-    const level = await getSteamLevel(userId);
+    const level = await getSteamLevel(profileLink);
 
     const {
       personaname: userName,

@@ -19,9 +19,7 @@ const levelColor = {
 
 export default async function UserPersonalDetails({ userId }) {
   const { countryCode, level, fullName, createdAt, isPrivate } =
-    await getSteamUser({
-      profileLink: userId,
-    });
+    await getSteamUser(userId);
 
   if (isPrivate) return <PrivateProfile />;
 

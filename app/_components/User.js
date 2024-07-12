@@ -7,7 +7,7 @@ import LoadingSkeletonFriends from "./LoadingSkeletonFriends";
 import RecentlyPlayed from "./RecentlyPlayed";
 
 export default async function User({ userId }) {
-  const { steamId } = await getSteamUser({ profileLink: userId });
+  const { steamId } = await getSteamUser(userId);
 
   return (
     <>

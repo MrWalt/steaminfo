@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 const userStatus = {
   offline: "border-primary-100 text-primary-100",
@@ -22,16 +22,6 @@ export default function Friend({
   accountState,
   currentlyPlaying,
 }) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  function handleSearch() {
-    const params = new URLSearchParams(searchParams);
-    params.set("userId", steamId);
-    router.replace(`${pathname}?${params.toString()}`);
-  }
-
   let status;
   if (accountState === 0) status = "offline";
   if (accountState >= 1 && !currentlyPlaying) status = "online";
@@ -44,17 +34,19 @@ export default function Friend({
           <div
             className={`relative w-11 h-11 overflow-hidden rounded-full border-[3px] ${userStatus[status]}               hover:scale-110 transition-transform cursor-pointer`}
           >
-            <Image src={avatar} fill alt="Some Image" />
+            <Link href={`/lookup/${steamId}`}>
+              <Image src={avatar} fill alt="Some Image" />
+            </Link>
           </div>
         </div>
 
         <div>
-          <p
-            onClick={handleSearch}
+          <Link
+            href={`/lookup/${steamId}`}
             className={`${userStatus[status]} ${hoverStatus[status]} transition-colors cursor-pointer text-ellipsis`}
           >
             {userName.length > 16 ? `${userName.slice(0, 16)}...` : userName}
-          </p>
+          </Link>
           {status === "online" && (
             <p className={`${userStatus[status]} text-sm`}>Online</p>
           )}

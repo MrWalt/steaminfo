@@ -1,20 +1,28 @@
 "use client";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const [userToSearch, setUserToSearch] = useState("");
 
   function handleSearch() {
-    const params = new URLSearchParams(searchParams);
-    params.set("userId", searchQuery);
-    router.replace(`${pathname}?${params.toString()}`);
-    setSearchQuery("");
+    if (searchQuery.startsWith("765")) {
+      setUserToSearch(searchQuery);
+      console.log(userToSearch);
+      return;
+    }
+
+    if (searchQuery.split("/").length > 1) {
+      setUserToSearch(searchQuery.split("/").at(4));
+      return;
+    }
+
+    if (searchQuery.split("/").length === 1) {
+      setUserToSearch(searchQuery);
+    }
   }
 
   return (
@@ -27,13 +35,15 @@ export default function SearchBar() {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <button
-        onClick={handleSearch}
-        className=" top-0 right-0 bg-primary-400 rounded-r-sm py-2 px-6 text-primary-50 hover:bg-primary-300 transition-colors flex items-center gap-2"
-      >
-        {/* <span>Search</span> */}
-        <MagnifyingGlassIcon className="h-5 w-5" />
-      </button>
+      <Link href={`/lookup/${userToSearch}`}>
+        <button
+          onMouseOver={handleSearch}
+          className="bg-primary-400 rounded-r-sm py-2 px-6 text-primary-50 hover:bg-primary-300 transition-colors flex items-center gap-2 h-full"
+        >
+          {/* <span>Search</span> */}
+          <MagnifyingGlassIcon className="h-5 w-5 pointer-events-none" />
+        </button>
+      </Link>
     </div>
   );
 }

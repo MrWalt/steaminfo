@@ -10,7 +10,7 @@ export default async function UserDetails({ userStatus, userId, status }) {
     lastSeen,
     tradeBanned,
     gameBans,
-  } = await getSteamUser({ profileLink: userId });
+  } = await getSteamUser(userId);
 
   return (
     <>
