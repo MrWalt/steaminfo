@@ -1,5 +1,6 @@
 import { formatDistanceStrict, fromUnixTime } from "date-fns";
 import { getSteamUser } from "../_lib/data-services";
+import SteamIdClipboard from "./SteamIdClipboard";
 
 export default async function UserDetails({ userStatus, userId, status }) {
   const {
@@ -17,7 +18,8 @@ export default async function UserDetails({ userStatus, userId, status }) {
       <div className="flex flex-col gap-1 py-2 bg-primary-700 rounded-sm justify-between ps-4 pe-12 flex-shrink-0 relative min-w-[30%]">
         <div>
           <p className={`text-2xl ${userStatus}`}>{userName}</p>
-          <p className="text-sm text-primary-100">{steamId}</p>
+          <SteamIdClipboard steamId={steamId} />
+          {/* <p className="text-sm text-primary-100">{steamId}</p> */}
         </div>
         {tradeBanned !== "none" || vacBans || gameBans ? (
           <div className="mt-auto">

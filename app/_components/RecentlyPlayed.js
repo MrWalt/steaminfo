@@ -55,7 +55,7 @@ export default async function RecentlyPlayed({ steamId }) {
       <div className=" bg-primary-600 rounded-b-sm border-t-4 border-accent-950 rounded-tr-sm grid grid-cols-[repeat(3,_1fr)] grid-rows-[400px]">
         {gamesToShow?.length && (
           <>
-            <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll no-scrollbar bg-primary-700 border-t-0 gap-1 px-6 py-8">
+            <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll no-scrollbar flex flex-col bg-primary-700 border-t-0 gap-1 px-6 py-8">
               <span className="text-sm text-primary-200 mb-2">
                 {(recentPlaytime / 60).toFixed(0)} hours played past 2 weeks
               </span>
