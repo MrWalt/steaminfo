@@ -2,13 +2,13 @@
 
 import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
-export default function PlaytimeChart({ data }) {
+export default function PlaytimeChart({ recentPlaytime, totalPlaytime }) {
   return (
     <>
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveContainer width="100%" height={220}>
         <PieChart>
           <Pie
-            data={data}
+            data={recentPlaytime}
             nameKey="name"
             dataKey="value"
             innerRadius={65}
@@ -21,8 +21,22 @@ export default function PlaytimeChart({ data }) {
             fill="#114673"
           />
           <Tooltip
-            formatter={(value, name, props) => ""}
-            separator=""
+            formatter={(value, name, props) =>
+              `
+              ${
+                (value / 60).toFixed(0) > 1
+                  ? `${(value / 60).toFixed(0)} hours`
+                  : ""
+              }
+              ${
+                (value / 60).toFixed(0) === 1
+                  ? `${(value / 60).toFixed(0)} hour`
+                  : ""
+              }
+               ${value < 60 && value !== 1 ? `${value} minutes` : ""}
+               ${value == 1 ? `${value} minute` : ""}`
+            }
+            separator=" &mdash; "
             contentStyle={{
               backgroundColor: "#0e2238",
               borderColor: "#114673",
@@ -31,11 +45,22 @@ export default function PlaytimeChart({ data }) {
             itemStyle={{
               color: "#e7eaed",
             }}
+            wrapperStyle={{ zIndex: "999" }}
           />
-          {/* <Tooltip
-            separator=" &mdash; "
-            payload={{ name: "AC3", value: 15, unit: "Hours" }}
-          /> */}
+
+          <Pie
+            data={totalPlaytime}
+            nameKey="gameName"
+            dataKey="value"
+            innerRadius={35}
+            outerRadius={60}
+            cx="50%"
+            cy="50%"
+            strokeWidth={1}
+            paddingAngle={5}
+            stroke="#1b6fb8"
+            fill="#14538a"
+          />
         </PieChart>
       </ResponsiveContainer>
     </>

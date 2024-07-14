@@ -2,7 +2,6 @@ import { CalendarDaysIcon, UserIcon } from "@heroicons/react/24/solid";
 import Country from "./Country";
 import { format, fromUnixTime } from "date-fns";
 import { getSteamUser } from "../_lib/data-services";
-import PrivateProfile from "./PrivateProfile";
 
 const levelColor = {
   0: "border-gray-500",
@@ -21,7 +20,12 @@ export default async function UserPersonalDetails({ userId }) {
   const { countryCode, level, fullName, createdAt, isPrivate } =
     await getSteamUser(userId);
 
-  if (isPrivate) return <PrivateProfile />;
+  if (isPrivate)
+    return (
+      <div className="basis-full">
+        <span className="text-red-500">This profile is private</span>
+      </div>
+    );
 
   const levelString = String(level);
   const levelIdentifier =

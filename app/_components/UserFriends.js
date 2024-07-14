@@ -62,9 +62,9 @@ export default async function UserFriends({ steamId }) {
             ))}
           </div>
         ) : (
-          <p className="text-primary-50 text-center text-lg mt-2">
+          <span className="text-primary-50 text-center mt-2">
             Friends list is private
-          </p>
+          </span>
         )}
         {friends?.error && <p>{friends.error}</p>}
       </div>

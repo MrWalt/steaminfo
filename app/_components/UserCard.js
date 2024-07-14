@@ -33,7 +33,7 @@ export default async function UserCard({ userId }) {
             className="hover:blur object-cover transition-all scale-[1.1] round"
           />
         </a>
-        <span className="absolute text-2xl text-primary-50 top-[50%] right-[50%] translate-x-[50%] translate-y-[50%] view-image-text font-bold text-outline bg-accent-600 px-2 py-1 rounded-sm">
+        <span className="absolute text-xl text-primary-50 top-[50%] right-[50%] translate-x-[50%] translate-y-[50%] view-image-text font-bold text-outline bg-primary-700 px-2 py-1 rounded-sm hover:bg-primary-200">
           View
         </span>
       </div>

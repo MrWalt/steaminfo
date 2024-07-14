@@ -1,7 +1,9 @@
 export default function page() {
   return (
-    <p className="text-center text-xl text-primary-50 col-span-full">
-      Start by typing in a SteamID or Profile Link
-    </p>
+    <div className="col-span-full mx-auto">
+      <span className="text-center text-lg text-primary-50  border-b border-primary-400 inline-block px-8 py-2">
+        Start by typing in a SteamID or Profile Link
+      </span>
+    </div>
   );
 }
