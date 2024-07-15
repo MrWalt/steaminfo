@@ -4,7 +4,7 @@ import UserFriends from "./UserFriends";
 import { getSteamUser } from "../_lib/data-services";
 import LoadingSkeletonUser from "./LoadingSkeletonUser";
 import LoadingSkeletonFriends from "./LoadingSkeletonFriends";
-import RecentlyPlayed from "./RecentlyPlayed";
+import Playtime from "./Playtime";
 
 export default async function User({ userId }) {
   const { steamId } = await getSteamUser(userId);
@@ -21,7 +21,7 @@ export default async function User({ userId }) {
         <UserFriends steamId={steamId} />
       </Suspense>
 
-      <RecentlyPlayed steamId={steamId} />
+      <Playtime steamId={steamId} />
     </>
   );
 }

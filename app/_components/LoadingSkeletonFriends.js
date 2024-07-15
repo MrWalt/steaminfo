@@ -2,7 +2,7 @@ export default function LoadingSkeletonFriends() {
   return (
     <div className="flex flex-col w-[300px] self-start justify-self-start">
       <div className="items-center flex text-primary-50 px-4 py-1 rounded-t-sm bg-accent-950 self-start gap-2">
-        <div className="h-4 w-7 bg-accent-700 rounded-sm animate-pulse"></div>
+        <div className="h-4 w-7 bg-accent-800 rounded-sm animate-pulse"></div>
         <span className="">Friends</span>
       </div>
       <div className="min-w-full h-[620px] bg-primary-600 flex flex-col gap-1 py-2 border-t-4 border-accent-950 rounded-tr-sm ">

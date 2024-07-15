@@ -1,6 +1,7 @@
 "use client";
 
 import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { formatPlaytime } from "../_lib/helpers";
 
 export default function PlaytimeChart({ recentPlaytime, totalPlaytime }) {
   return (
@@ -21,21 +22,8 @@ export default function PlaytimeChart({ recentPlaytime, totalPlaytime }) {
             fill="#114673"
           />
           <Tooltip
-            formatter={(value, name, props) =>
-              `
-              ${
-                (value / 60).toFixed(0) > 1
-                  ? `${(value / 60).toFixed(0)} hours`
-                  : ""
-              }
-              ${
-                (value / 60).toFixed(0) === 1
-                  ? `${(value / 60).toFixed(0)} hour`
-                  : ""
-              }
-               ${value < 60 && value !== 1 ? `${value} minutes` : ""}
-               ${value == 1 ? `${value} minute` : ""}`
-            }
+            // To correctly display Minutes, Minute, Hour and Hours
+            formatter={(value, name, props) => formatPlaytime(value)}
             separator=" &mdash; "
             contentStyle={{
               backgroundColor: "#0e2238",

@@ -19,7 +19,6 @@ export default async function UserDetails({ userStatus, userId, status }) {
         <div>
           <p className={`text-2xl ${userStatus}`}>{userName}</p>
           <SteamIdClipboard steamId={steamId} />
-          {/* <p className="text-sm text-primary-100">{steamId}</p> */}
         </div>
         {tradeBanned !== "none" || vacBans || gameBans ? (
           <div className="mt-auto">

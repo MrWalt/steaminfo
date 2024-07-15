@@ -40,7 +40,6 @@ export default function SearchBar() {
           onMouseOver={handleSearch}
           className="bg-primary-400 rounded-r-sm py-2 px-6 text-primary-50 hover:bg-primary-300 transition-colors flex items-center gap-2 h-full"
         >
-          {/* <span>Search</span> */}
           <MagnifyingGlassIcon className="h-5 w-5 pointer-events-none" />
         </button>
       </Link>
