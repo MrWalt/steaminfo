@@ -52,7 +52,7 @@ export default async function Playtime({ steamId }) {
           Inventory
         </span>
       </div>
-      <div className=" bg-primary-600 rounded-b-sm border-t-4 border-accent-950 rounded-tr-sm grid grid-cols-[repeat(3,_1fr)] grid-rows-[400px]">
+      <div className="bg-primary-600 rounded-b-sm border-t-4 border-accent-950 rounded-tr-sm grid grid-cols-[repeat(3,_1fr)] grid-rows-[400px]">
         {allGames?.games?.length > 0 && totalPlaytime !== 0 ? (
           <>
             <Playtime.RecentPlaytime
