@@ -14,7 +14,7 @@ export default async function User({ userId }) {
     <>
       {/* <LoadingSkeletonUser />
       <LoadingSkeletonFriends />
-<LoadingSkeletonPlaytime /> */}
+      <LoadingSkeletonPlaytime /> */}
       <Suspense fallback={<LoadingSkeletonUser />} key={userId}>
         <UserCard userId={steamId} />
       </Suspense>

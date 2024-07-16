@@ -1,44 +1,47 @@
 import { getFriends, getSteamUser } from "../_lib/data-services";
 import Friend from "./Friend";
 
-const friendCaps = Array.from({ length: 1 }, (value, i) => i * 100 + 100);
+const friendCaps = Array.from({ length: 20 }, (value, i) => i * 100 + 100);
 
 export default async function UserFriends({ steamId }) {
   const friends = await getFriends(steamId);
-  // // God forgive me for this stupid code, steam api forced my hand
+  let friendsToDisplay, friendsSlice, fetchedFriends, friendsToFetch;
 
-  // const friendsToFetch = friends.map((friend) => friend.steamid);
-
-  // let friendsSlice = friendCaps.map((cap) => {
-  //   const spliced = friendsToFetch.slice(`${cap - 100}`, cap);
-
-  //   return spliced;
-  // });
-
-  // const fetchedFriends = await Promise.all(
-  //   friendsSlice.map(async function (ids) {
-  //     const steamIds = ids.join(",");
-
-  //     return await getSteamUser(steamIds, "multiple");
-  //   })
-  // );
-
-  let friendsToFetch, fetchedFriends, friendsToDisplay;
+  // God forgive me for this stupid code, steam api forced my hand
+  if (!friends?.private)
+    friendsToFetch = friends?.map((friend) => friend.steamid);
 
   if (!friends?.private)
-    friendsToFetch = friends
-      ?.map((friend, i) => {
-        if (i < 30) return friend.steamid;
+    friendsSlice = friendCaps?.map((cap) => {
+      const spliced = friendsToFetch?.slice(`${cap - 100}`, cap);
+
+      return spliced;
+    });
+
+  // I hope this does not cause a timeout
+  if (!friends?.private)
+    fetchedFriends = await Promise.all(
+      friendsSlice.map(async function (ids) {
+        const steamIds = ids.join(",");
+
+        return await getSteamUser(steamIds, "multiple");
       })
-      ?.splice(0, 30);
-
-  if (!friends?.private)
-    fetchedFriends = await getSteamUser(friendsToFetch.join(","), "multiple");
-
-  if (!friends?.private)
-    friendsToDisplay = fetchedFriends.sort(
-      (a, b) => b.personastate - a.personastate
     );
+
+  // if (!friends?.private)
+  //   friendsToFetch = friends
+  //     ?.map((friend, i) => {
+  //       if (i < 30) return friend.steamid;
+  //     })
+  //     ?.splice(0, 30);
+
+  // if (!friends?.private)
+  //   fetchedFriends = await getSteamUser(friendsToFetch.join(","), "multiple");
+
+  if (!friends?.private)
+    friendsToDisplay = fetchedFriends
+      .flat()
+      .sort((a, b) => b.personastate - a.personastate);
 
   return (
     // <></>

@@ -15,7 +15,7 @@ export default async function UserDetails({ userStatus, userId, status }) {
 
   return (
     <>
-      <div className="flex flex-col gap-1 py-2 bg-primary-700 rounded-sm justify-between ps-4 pe-12 flex-shrink-0 relative min-w-[30%]">
+      <div className="flex flex-col gap-1 py-2 bg-primary-700 rounded-sm justify-between ps-4 pe-12 grow-0 relative min-w-[33%]">
         <div>
           <p className={`text-2xl ${userStatus}`}>{userName}</p>
           <SteamIdClipboard steamId={steamId} />
