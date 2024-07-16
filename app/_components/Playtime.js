@@ -83,7 +83,7 @@ export default async function Playtime({ steamId }) {
 function RecentPlaytime({ recentPlaytime, recentGamesToDisplay }) {
   if (!recentPlaytime)
     return (
-      <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll no-scrollbar flex flex-col bg-primary-700 border-t-0 gap-1 px-6 py-8">
+      <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll scrollbar-none flex flex-col bg-primary-700 border-t-0 gap-1 px-6 py-8">
         <span className="text-center">
           User has not played anything recently
         </span>
@@ -91,7 +91,7 @@ function RecentPlaytime({ recentPlaytime, recentGamesToDisplay }) {
     );
 
   return (
-    <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll no-scrollbar flex flex-col bg-primary-700 border-t-0 gap-1 px-6 py-8">
+    <div className="grow-0 text-primary-50 border border-primary-400 overflow-scroll scrollbar-none flex flex-col bg-primary-700 border-t-0 gap-1 px-6 py-8">
       <span className="text-sm text-primary-200 mb-2">
         {formatPlaytime(recentPlaytime)} played past 2 weeks
       </span>

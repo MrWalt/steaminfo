@@ -21,8 +21,4 @@
   .rounded-layout {
     border-radius: 999px 16px 16px 999px;
   }
-
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
 }
