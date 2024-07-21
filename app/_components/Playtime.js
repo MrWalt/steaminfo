@@ -1,14 +1,32 @@
+"use client";
+
 import Image from "next/image";
-import { getGames, getRecentlyPlayed } from "../_lib/data-services";
 import PlaytimeChart from "./PlaytimeChart";
 import { unstable_noStore as noStore } from "next/cache";
 import { GAMES_TO_DISPLAY } from "../_lib/constants";
 import { formatPlaytime } from "../_lib/helpers";
+import { useEffect, useState } from "react";
+import { fetchAllGameData, fetchRecentGameData } from "../_lib/actions";
 
-export default async function Playtime({ steamId }) {
+export default function Playtime({ steamId }) {
   noStore();
-  const recentlyPlayedGames = await getRecentlyPlayed(steamId);
-  const allGames = await getGames(steamId);
+  const [recentlyPlayedGames, setRecentlyPlayedGames] = useState([]);
+  const [allGames, setAllGames] = useState([]);
+
+  useEffect(
+    function () {
+      async function fetchData() {
+        const recentlyPlayedGames = await fetchRecentGameData(steamId);
+        const allGames = await fetchAllGameData(steamId);
+
+        setRecentlyPlayedGames(recentlyPlayedGames);
+        setAllGames(allGames);
+      }
+
+      if (steamId) fetchData();
+    },
+    [steamId]
+  );
 
   const topGames = allGames?.games
     ?.sort((a, b) => b.playtime_forever - a.playtime_forever)
@@ -43,37 +61,27 @@ export default async function Playtime({ steamId }) {
   // Refactor later
 
   return (
-    <div className="flex flex-col col-start-1 col-end-4 row-start-2 row-end-4">
-      <div className="flex text-primary-50">
-        <span className="bg-accent-950 inline-block px-2 py-1 rounded-tl-sm hover:bg-accent-950 transition-colors cursor-pointer">
-          Playtime
+    <>
+      {allGames?.games?.length > 0 && totalPlaytime !== 0 ? (
+        <>
+          <Playtime.RecentPlaytime
+            recentGamesToDisplay={recentGamesToDisplay}
+            recentPlaytime={recentPlaytime}
+          />
+          <Playtime.Chart
+            topGamesToDisplay={topGamesToDisplay}
+            recentGamesToDisplay={recentGamesToDisplay}
+            totalPlaytime={totalPlaytime}
+            gameCount={allGames.game_count}
+          />
+          <Playtime.TopGames topGamesToDisplay={topGamesToDisplay} />
+        </>
+      ) : (
+        <span className="text-primary-50 text-center col-span-full my-auto text-lg">
+          Playtime is private
         </span>
-        <span className="bg-accent-800 inline-block px-2 py-1 rounded-tr-sm hover:bg-accent-950 transition-colors cursor-pointer">
-          Inventory
-        </span>
-      </div>
-      <div className="bg-primary-600 rounded-b-sm border-t-4 border-accent-950 rounded-tr-sm grid grid-cols-[repeat(3,_1fr)] grid-rows-[400px]">
-        {allGames?.games?.length > 0 && totalPlaytime !== 0 ? (
-          <>
-            <Playtime.RecentPlaytime
-              recentGamesToDisplay={recentGamesToDisplay}
-              recentPlaytime={recentPlaytime}
-            />
-            <Playtime.Chart
-              topGamesToDisplay={topGamesToDisplay}
-              recentGamesToDisplay={recentGamesToDisplay}
-              totalPlaytime={totalPlaytime}
-              gameCount={allGames.game_count}
-            />
-            <Playtime.TopGames topGamesToDisplay={topGamesToDisplay} />
-          </>
-        ) : (
-          <span className="text-primary-50 text-center col-span-full my-auto text-lg">
-            Playtime is private
-          </span>
-        )}
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
@@ -141,7 +149,7 @@ function Chart({
 function TopGames({ topGamesToDisplay }) {
   return (
     <div className="grid grid-rows-[auto,_repeat(5,_1fr)] grid-cols-1 gap-2 text-primary-50 border-l border-primary-400 px-4 py-8">
-      <p className="text-primary-100 text-sm">5 most played games</p>
+      <p className="text-primary-100 text-sm">Most played games</p>
       {topGamesToDisplay?.map((game) => (
         <div
           key={game.gameName}

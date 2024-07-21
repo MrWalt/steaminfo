@@ -192,3 +192,14 @@ export async function getRecentlyPlayed(userId) {
 
   return data.response.games;
 }
+
+export async function getInventory(userId) {
+  const res = await fetch(
+    `https://www.steamwebapi.com/steam/api/inventory?key=${process.env.STEAM_WEB_API_KEY}&steam_id=${userId}`
+  );
+
+  // if (!res.ok) throw new Error("Could not fetch inventory");
+  const data = await res.json();
+  // console.log(data);
+  return data;
+}

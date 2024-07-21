@@ -4,8 +4,7 @@ import UserFriends from "./UserFriends";
 import { getSteamUser } from "../_lib/data-services";
 import LoadingSkeletonUser from "./LoadingSkeletonUser";
 import LoadingSkeletonFriends from "./LoadingSkeletonFriends";
-import Playtime from "./Playtime";
-import LoadingSkeletonPlaytime from "./LoadingSkeletonPlaytime";
+import UserStats from "./UserStats";
 
 export default async function User({ userId }) {
   const { steamId } = await getSteamUser(userId);
@@ -23,9 +22,7 @@ export default async function User({ userId }) {
         <UserFriends steamId={steamId} />
       </Suspense>
 
-      <Suspense fallback={<LoadingSkeletonPlaytime />} key={userId * 2}>
-        <Playtime steamId={steamId} />
-      </Suspense>
+      <UserStats steamId={steamId} />
     </>
   );
 }
