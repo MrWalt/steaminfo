@@ -7,26 +7,32 @@ import { GAMES_TO_DISPLAY } from "../_lib/constants";
 import { formatPlaytime } from "../_lib/helpers";
 import { useEffect, useState } from "react";
 import { fetchAllGameData, fetchRecentGameData } from "../_lib/actions";
+import LoadingSkeletonPlaytime from "./LoadingSkeletonPlaytime";
 
 export default function Playtime({ steamId }) {
   noStore();
   const [recentlyPlayedGames, setRecentlyPlayedGames] = useState([]);
   const [allGames, setAllGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(
     function () {
+      setIsLoading(true);
       async function fetchData() {
         const recentlyPlayedGames = await fetchRecentGameData(steamId);
         const allGames = await fetchAllGameData(steamId);
 
         setRecentlyPlayedGames(recentlyPlayedGames);
         setAllGames(allGames);
+        setIsLoading(false);
       }
 
       if (steamId) fetchData();
     },
     [steamId]
   );
+
+  if (isLoading) return <LoadingSkeletonPlaytime />;
 
   const topGames = allGames?.games
     ?.sort((a, b) => b.playtime_forever - a.playtime_forever)
