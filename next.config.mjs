@@ -26,6 +26,18 @@ const nextConfig = {
         port: "",
         pathname: "/steamcommunity/public/images/apps/**",
       },
+      {
+        protocol: "https",
+        hostname: "steamcommunity-a.akamaihd.net",
+        port: "",
+        pathname: "/economy/image/**",
+      },
+      {
+        protocol: "https",
+        hostname: "community.cloudflare.steamstatic.com",
+        port: "",
+        pathname: "/economy/image/**",
+      },
     ],
   },
 };
