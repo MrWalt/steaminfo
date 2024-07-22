@@ -19,7 +19,6 @@ export default function Inventory({ steamId }) {
     [steamId]
   );
 
-  console.log(items);
   if (isLoading) return <p>Loading...</p>;
   if (items.error) return <div> Private </div>;
 
@@ -28,7 +27,6 @@ export default function Inventory({ steamId }) {
     0
   );
 
-  console.log(items);
   return (
     <div className="text-primary-50 col-span-full row-start-1 row-end-2 grid grid-rows-[48px_352px]">
       <div className="px-8 py-1 flex items-center justify-between">
@@ -54,6 +52,8 @@ export default function Inventory({ steamId }) {
             image={item.image}
             price={item.pricereal}
             itemWear={item.wear}
+            statTrak={item.isstattrak}
+            inspect={item.inspectlink}
             key={item.id + Math.random() * 100000000}
           />
         ))}

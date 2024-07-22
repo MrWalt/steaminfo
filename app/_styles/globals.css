@@ -18,6 +18,11 @@
     transform: translateY(-50%) translateX(50%);
   }
 
+  a:hover .view-inspect-link {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
   .rounded-layout {
     border-radius: 999px 16px 16px 999px;
   }
