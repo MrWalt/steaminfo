@@ -20,18 +20,33 @@ export default function Inventory({ steamId }) {
   );
 
   if (isLoading) return <p>Loading...</p>;
-  console.log(items);
   if (items.error) return <div> Private </div>;
+
+  const totalInventoryValue = items.reduce(
+    (acc, item) => (acc += item.pricereal),
+    0
+  );
+
+  console.log(items);
   return (
-    <div className="text-primary-50 pt-3 col-span-full">
-      <div className="mb-3 px-6">
-        <p className="text-xl">Counter-Strike 2</p>
-        <p className="text-accent-300">
-          {items.length}{" "}
-          <span className="text-primary-50">items in inventory</span>
-        </p>
+    <div className="text-primary-50 col-span-full row-start-1 row-end-2 grid grid-rows-[48px_348px]">
+      <div className="px-8 py-1 flex items-center justify-between">
+        <div className="flex items-center">
+          <span className="text-xl pr-4 border-r border-primary-300">
+            Counter-Strike 2
+          </span>
+          <span className="text-accent-300 pl-4">
+            {items.length} <span className="text-primary-50">items</span>
+          </span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <span className="text-xs text-primary-100 italic">Total value</span>
+          <span className="inline-block px-4 py-1 border border-primary-400 bg-primary-700">
+            {totalInventoryValue.toFixed(2)}$
+          </span>
+        </div>
       </div>
-      <div className="overflow-y-scroll border-t h-5/6 border-primary-400 pl-2 py-3 w-full grid grid-cols-7 scrollbar-thin scrollbar-thumb-accent-950 scrollbar-track-primary-600 gap-1">
+      <div className="overflow-y-scroll border-t border-primary-400 px-2 py-2 w-full grid grid-cols-7 scrollbar-thin scrollbar-thumb-accent-950 scrollbar-track-primary-600 gap-1">
         {items.map((item) => (
           <Item
             itemName={item.marketname}

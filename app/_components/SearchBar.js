@@ -11,7 +11,6 @@ export default function SearchBar() {
   function handleSearch() {
     if (searchQuery.startsWith("765")) {
       setUserToSearch(searchQuery);
-      console.log(userToSearch);
       return;
     }
 
