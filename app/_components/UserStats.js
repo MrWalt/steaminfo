@@ -39,6 +39,7 @@ export default function UserStats({ steamId }) {
         {currentTab === "playtime" && <Playtime steamId={steamId} />}
         {currentTab === "inventory" && <Inventory steamId={steamId} />}
       </div>
+      <div className="w-full h-4 bg-accent-950 rounded-b-sm"></div>
     </div>
   );
 }

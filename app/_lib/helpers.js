@@ -9,5 +9,13 @@ export function formatPlaytime(playtime, type = "fullText") {
 }
 
 export function formatItemName(itemName) {
-  return itemName.split("(").at(0);
+  let formattedItemName = itemName.split("(").at(0);
+
+  if (formattedItemName.startsWith("StatTrak"))
+    formattedItemName = formattedItemName.slice(9, formattedItemName.length);
+
+  if (formattedItemName.length > 26)
+    return formattedItemName.slice(0, 26) + "...";
+
+  return formattedItemName;
 }
