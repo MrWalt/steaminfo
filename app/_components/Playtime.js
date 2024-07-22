@@ -22,9 +22,9 @@ export default function Playtime({ steamId }) {
         const recentlyPlayedGames = await fetchRecentGameData(steamId);
         const allGames = await fetchAllGameData(steamId);
 
+        setIsLoading(false);
         setRecentlyPlayedGames(recentlyPlayedGames);
         setAllGames(allGames);
-        setIsLoading(false);
       }
 
       if (steamId) fetchData();

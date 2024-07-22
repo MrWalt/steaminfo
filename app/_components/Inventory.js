@@ -1,13 +1,19 @@
-import { getInventory } from "../_lib/data-services";
+import { useEffect, useState } from "react";
+import { fetchInventory } from "../_lib/actions";
 
-export default async function Inventory({ steamId }) {
-  const items = await getInventory(steamId);
-
-  if (items.error) return null;
-
-  // console.log(items.at(0).marketname.split("(").at(0));
-  // console.log(items.at(1).marketname.split("(").at(0));
-  // console.log(items.at(2).marketname.split("(").at(0));
-  // console.log(items.at(3).marketname.split("(").at(0));
-  return <div></div>;
+export default function Inventory({ steamId }) {
+  const [items, setItems] = useState([]);
+  useEffect(
+    function () {
+      async function fetchItems() {
+        const items = await fetchInventory(steamId);
+        setItems(items);
+      }
+      if (steamId) fetchItems();
+    },
+    [steamId]
+  );
+  console.log(items);
+  if (items.error) return <div> Private </div>;
+  return <div>Inventory</div>;
 }
