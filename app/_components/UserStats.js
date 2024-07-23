@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Playtime from "./Playtime";
 import Inventory from "./Inventory";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function UserStats({ steamId }) {
   const [currentTab, setCurrentTab] = useState("playtime");
@@ -37,6 +38,7 @@ export default function UserStats({ steamId }) {
       </div>
       <div className="bg-primary-600 rounded-b-sm border-t-4 border-accent-950 rounded-tr-sm grid grid-cols-[repeat(3,_1fr)] grid-rows-[400px]">
         {currentTab === "playtime" && <Playtime steamId={steamId} />}
+        {/* {currentTab === "inventory" && <LoadingSkeleton.Inventory />} */}
         {currentTab === "inventory" && <Inventory steamId={steamId} />}
       </div>
       <div className="w-full h-4 bg-accent-950 rounded-b-sm"></div>

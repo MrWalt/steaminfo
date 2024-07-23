@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchInventory } from "../_lib/actions";
 import Item from "./Item";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function Inventory({ steamId }) {
   const [items, setItems] = useState([]);
@@ -19,8 +20,13 @@ export default function Inventory({ steamId }) {
     [steamId]
   );
 
-  if (isLoading) return <p>Loading...</p>;
-  if (items.error) return <div> Private </div>;
+  if (isLoading) return <LoadingSkeleton.Inventory />;
+  if (items.error)
+    return (
+      <div className="flex justify-center items-center col-span-full">
+        <span className="text-primary-50 text-lg">Inventory is private</span>
+      </div>
+    );
 
   const totalInventoryValue = items.reduce(
     (acc, item) => (acc += item.pricereal),
@@ -35,7 +41,7 @@ export default function Inventory({ steamId }) {
             Counter-Strike 2
           </span>
           <span className="text-accent-300 pl-4">
-            {items.length} <span className="text-primary-50">items</span>
+            {items.length} <span className="text-primary-50">Items</span>
           </span>
         </div>
         <div className="flex gap-2 items-center">
