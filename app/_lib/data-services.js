@@ -128,7 +128,7 @@ export async function getFriends(steamId) {
     `http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=${process.env.STEAM_KEY}&steamid=${steamId}&relationship=friend`
   );
 
-  if (!res.ok) return { friends: [], private: true };
+  if (!res.ok) return { private: true };
 
   const data = await res.json();
 

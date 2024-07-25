@@ -37,7 +37,9 @@ export default function MainNav() {
             href={link.href}
             key={link.name}
             className={`hover:bg-primary-500 flex gap-2 px-8 py-4 items-center transition-colors ${
-              pathname === link.href ? "bg-primary-500 text-accent-400" : ""
+              pathname.includes(link.href)
+                ? "bg-primary-500 text-accent-400"
+                : ""
             }`}
           >
             {link.icon}

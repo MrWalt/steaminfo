@@ -10,16 +10,13 @@ export default async function User({ userId }) {
 
   return (
     <>
-      {/* <LoadingSkeletonUser />
-      <LoadingSkeletonFriends />
-      <LoadingSkeletonPlaytime /> */}
+      {/* <LoadingSkeleton.User />
+      <LoadingSkeleton.Friends /> */}
       <Suspense fallback={<LoadingSkeleton.User />} key={userId}>
         <UserCard userId={steamId} />
       </Suspense>
 
-      <Suspense fallback={<LoadingSkeleton.Friends />} key={userId / 2}>
-        <UserFriends steamId={steamId} />
-      </Suspense>
+      <UserFriends steamId={steamId} />
 
       <UserStats steamId={steamId} />
     </>

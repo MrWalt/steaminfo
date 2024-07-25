@@ -41,7 +41,7 @@ export default function UserStats({ steamId }) {
         {/* {currentTab === "inventory" && <LoadingSkeleton.Inventory />} */}
         {currentTab === "inventory" && <Inventory steamId={steamId} />}
       </div>
-      <div className="w-full h-4 bg-accent-950 rounded-b-sm"></div>
+      <div className="w-full h-2 bg-accent-950 rounded-b-sm"></div>
     </div>
   );
 }

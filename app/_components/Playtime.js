@@ -161,7 +161,7 @@ function TopGames({ topGamesToDisplay }) {
           key={game.gameName}
           className="bg-primary-700 border border-primary-500 rounded-sm flex gap-2 items-center px-2"
         >
-          <div className="relative w-[42px] h-[42px] overflow-hidden border-2 border-accent-900">
+          <div className="relative w-[42px] h-[42px] overflow-hidden border-2 border-accent-900 shrink-0">
             <Image
               src={game.avatar}
               fill
