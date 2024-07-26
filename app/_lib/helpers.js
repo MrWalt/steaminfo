@@ -14,6 +14,9 @@ export function formatItemName(itemName) {
   if (formattedItemName.startsWith("StatTrak"))
     formattedItemName = formattedItemName.slice(9, formattedItemName.length);
 
+  if (formattedItemName.startsWith("★ StatTrak"))
+    formattedItemName = formattedItemName.slice(11, formattedItemName.length);
+
   if (formattedItemName.length > 26)
     return formattedItemName.slice(0, 26) + "...";
 

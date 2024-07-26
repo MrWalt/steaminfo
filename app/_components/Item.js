@@ -17,12 +17,12 @@ export default function Item({
       </div>
       <a href={inspect} className="inline-block w-full">
         <div
-          className={`flex items-center ${
-            itemWear ? "justify-between" : "justify-center"
-          } w-full bg-primary-600 px-2 border border-primary-300 cursor-pointer relative`}
+          className={`flex items-center justify-center w-full bg-primary-600 px-2 border border-primary-300 cursor-pointer relative`}
         >
-          <span className="uppercase inline-block text-xs">{itemWear}</span>
-          <span className="inline-block">{price}$</span>
+          <span className="uppercase inline-block text-xs absolute top-0 right-0 translate-y-[-100%] text-primary-100">
+            {itemWear}
+          </span>
+          <span className="inline-block">{price}</span>
           {statTrak && (
             <span className="text-xs text-primary-100 absolute top-0 left-0 translate-y-[-100%] pointer-events-none">
               StatTrak&#8482;

@@ -20,6 +20,8 @@ export default function Inventory({ steamId }) {
     [steamId]
   );
 
+  console.log(items);
+
   if (isLoading) return <LoadingSkeleton.Inventory />;
   if (items.error)
     return (
@@ -56,7 +58,7 @@ export default function Inventory({ steamId }) {
           <Item
             itemName={item.marketname}
             image={item.image}
-            price={item.pricereal}
+            price={item.pricereal ? `${item.pricereal}$` : "No Price"}
             itemWear={item.wear}
             statTrak={item.isstattrak}
             inspect={item.inspectlink}
